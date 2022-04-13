@@ -1,32 +1,30 @@
-import React from 'react';
+import {useEffect, useState} from 'react'; 
 import editProfileButton from '../../images/vector.svg';
 import { api } from '../../utils/Api';
 import Card from '../Card/Card';
 
 
 function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
-    const [userName, setUserName] = React.useState('Наполеон');
-    const [userDescription, setUserDescription] = React.useState('император');
-    const [userAvatar, setUserAvatar] = React.useState('https://ihospital.ru/image/325a5793-cca1-4396-ab3a-3ac258ca3c89.jpg');
-    const [cards, setCards] = React.useState([]);
-    React.useEffect(() => {
+    const [userName, setUserName] = useState('Наполеон');
+    const [userDescription, setUserDescription] = useState('император');
+    const [userAvatar, setUserAvatar] = useState('https://ihospital.ru/image/325a5793-cca1-4396-ab3a-3ac258ca3c89.jpg');
+    const [cards, setCards] = useState([]);
+    useEffect(() => {
         api.getProfile()
         .then(res => {
-            
             setUserName(res.name);
             setUserDescription(res.about);
             setUserAvatar(res.avatar);
         })
-    }, [])
-
-    React.useEffect(()=> {
         api.getInitialCards()
         .then((res)=>{
             setCards(res)
         })
-            .catch(console.log)
-    }, [])
-    return (
+        .catch(console.log)
+    }, 
+    [])
+
+       return (
         <main className="content">
         <section className="profile">
             <div onClick={onEditAvatar} className="profile__hover-container">
@@ -48,7 +46,7 @@ function Main ({onEditProfile, onAddPlace, onEditAvatar, onCardClick}) {
                {                   
                         cards.map(item=>(
                             <Card link={item.link} name = {item.name} likeCount={item.likes.length} key = {item._id} onCardClick = {onCardClick}/>
-                        ))
+                           ))
                     
                }
      

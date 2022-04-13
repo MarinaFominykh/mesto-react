@@ -2,6 +2,7 @@ function Card (props) {
     function handleClick() {
         props.onCardClick(props.link, props.name);
     }
+    
 return (
     <li className="places__card">
     <button className="places__delete-button" type="button">
