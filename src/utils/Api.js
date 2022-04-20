@@ -85,6 +85,8 @@ class Api {
 
     }
 
+
+
     _checkResponse(res) {
         return res.ok ? res.json() : Promise.reject(res.status);
     }

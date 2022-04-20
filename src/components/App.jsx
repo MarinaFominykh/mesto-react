@@ -1,11 +1,13 @@
 
 import {useEffect, useState} from 'react'; 
+import { Route,  Routes } from 'react-router-dom'
 import Header from "./Header/Header";
 import Main from "./Main/Main";
 import Footer from "./Footer/Footer";
 import PopupWithForm from "./PopupWithForm/PopupWithForm";
 import ImagePopup from "./ImagePopup/ImagePopup";
 import { api } from "../utils/Api";
+import {CurrentUserContext, currentUser} from '../contexts/CurrentUserContext';
 
 function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] =
@@ -14,6 +16,11 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] =
     useState(false);
   const [selectedCard, setSelectedCard] = useState({});
+  const [currentUser, setCurrentUser] = useState({
+    name: "Иван Федорович",
+    about: "Человек и пароход",
+    avatar: "https://cdn.pixabay.com/photo/2017/11/11/21/55/freedom-2940655__340.jpg"
+   });
 
   const handleEditAvatarClick = () => {
     setIsEditAvatarPopupOpen(true);
@@ -36,17 +43,29 @@ function App() {
 
   const handleCardClick = (link, name) => {
     setSelectedCard({ active: true, link: link, name: name });
+    
+    
+    
   };
+  useEffect(() => {
+    api.getProfile()
+    .then(res => {
+      setCurrentUser(res)
+    })
+    .catch(console.log)
+  }, [])
 
   return (
     <div className="page">
       <Header />
+      <CurrentUserContext.Provider value={currentUser}>
       <Main
         onEditProfile={handleEditProfileClick}
         onAddPlace={handleAddPlaceClick}
         onEditAvatar={handleEditAvatarClick}
         onCardClick={handleCardClick}
       ></Main>
+      </CurrentUserContext.Provider>
       <Footer />
       <PopupWithForm
         name="edit"
