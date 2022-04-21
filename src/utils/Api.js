@@ -39,7 +39,6 @@ class Api {
                 body: JSON.stringify({ avatar })
             })
             .then(this._checkResponse)
-
     }
 
     addCard(name, link) {
@@ -52,7 +51,6 @@ class Api {
                 })
             })
             .then(this._checkResponse)
-
     }
 
     deleteCard(id) {
@@ -62,7 +60,6 @@ class Api {
 
             })
             .then(this._checkResponse)
-
     }
 
     deleteLike(id) {
@@ -72,7 +69,6 @@ class Api {
 
             })
             .then(this._checkResponse)
-
     }
 
     addLike(id) {
@@ -82,9 +78,7 @@ class Api {
 
             })
             .then(this._checkResponse)
-
     }
-
 
 
     _checkResponse(res) {
