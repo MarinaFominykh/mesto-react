@@ -12,6 +12,7 @@
     transition: .5s;
     cursor: pointer;
     z-index: 2;
+    border-radius: inherit;
 }
 
 .profile__hover-pen:hover {
